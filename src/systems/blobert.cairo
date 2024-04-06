@@ -1,12 +1,23 @@
-use blob_arena::{components::{blobert::{Blobert, Health}, world::World}};
+use blob_arena::{components::{blobert::{Blobert}, world::World}};
 use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};
+use starknet::{ContractAddress};
+
+use origami::random::
+
 
 #[generate_trait]
 impl BlobertImpl of WBlobertTrait {
+    fn formulate(seed: u128){
+        
+    }
+
     fn get_blobert(self: IWorldDispatcher, bert_id: u128) -> Blobert {
         get!(self, (bert_id), Blobert)
     }
-    fn get_health(self: IWorldDispatcher, bert_id: u128, combat_id: u128) -> Health {
-        get!(self, (bert_id, combat_id), Health)
+    fn check_owner(self: Blobert, player: ContractAddress) -> bool {
+        return self.owner == player;
+    }
+    fn assert_owner(self: Blobert, player: ContractAddress) {
+        assert(self.check_owner(player), 'Not Blobert Owner');
     }
 }

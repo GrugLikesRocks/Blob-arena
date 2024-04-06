@@ -1,5 +1,5 @@
 use blob_arena::components::stats::{Stats, StatsTrait};
-#[derive(Copy, Drop, Print, Serde, SerdeLen)]
+#[derive(Copy, Drop, Print, Serde, SerdeLen, Size)]
 enum Jewelry {
     Amulet,
     BronzeRing,
@@ -10,6 +10,8 @@ enum Jewelry {
     SilverRing,
     TitaniumRing,
 }
+
+const JEWELRY_COUNT: u8 = 8;
 
 impl JewelryImpl of StatsTrait<Jewelry> {
     fn stats(self: Jewelry) -> Stats {

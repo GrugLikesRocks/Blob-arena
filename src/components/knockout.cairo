@@ -1,14 +1,17 @@
 use blob_arena::components::{
     blobert::{Blobert, Health}, combat::MatchResult, utils::{AB, Status, Winner}
 };
+use starknet::{ContractAddress};
 
 
 #[derive(Model, Copy, Drop, Print, Serde)]
 struct Knockout {
     #[key]
     combat_id: u128,
-    bert_a: u128,
-    bert_b: u128,
+    player_a: ContractAddress,
+    player_b: ContractAddress,
+    blobert_a: u128,
+    blobert_b: u128,
 }
 
 
@@ -18,7 +21,6 @@ struct Healths {
     combat_id: u128,
     a: u8,
     b: u8,
-    round_number: u32,
 }
 
 

@@ -1,5 +1,8 @@
 use blob_arena::components::stats::{Stats, StatsTrait};
 
+
+const BACKGROUND_COUNT: u8 = 12;
+
 #[derive(Copy, Drop, Print, Serde, SerdeLen)]
 enum Background {
     AvnuBlue,

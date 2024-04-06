@@ -1,5 +1,7 @@
 use blob_arena::components::stats::{Stats, StatsTrait};
 
+const ARMOUR_COUNT: u8 = 17;
+
 #[derive(Copy, Drop, Print, Serde, SerdeLen)]
 enum Armour {
     SheepsWool,

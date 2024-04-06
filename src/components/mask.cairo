@@ -1,5 +1,7 @@
 use blob_arena::components::stats::{Stats, StatsTrait};
 
+const MASK_COUNT: u8 = 26;
+
 #[derive(Copy, Drop, Print, Serde, SerdeLen)]
 enum Mask {
     Blobert,
