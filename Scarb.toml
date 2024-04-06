@@ -1,0 +1,41 @@
+[package]
+cairo-version = "2.5.4"
+name = "blob_arena"
+version = "0.1.0"
+
+[cairo]
+sierra-replace-ids = true
+
+[dependencies]
+dojo = { git = "https://github.com/dojoengine/dojo", tag = "v0.6.0" }
+origami = { git = "https://github.com/dojoengine/origami", tag = "v0.6.0" }
+cubit = { git = "https://github.com/influenceth/cubit" }
+# openzeppelin = { git = "https://github.com/ben-jay-amin/cairo-contracts.git", branch = "release-v0.9.1" }
+
+[[target.dojo]]
+
+[tool.dojo]
+initializer_class_hash = "0xbeef"
+
+[tool.dojo.env]
+
+# local
+rpc_url = "http://localhost:5050"
+account_address = "0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca"
+private_key = "0x2bbf4f9fd0bbb2e60b0316c1fe0b76cf7a4d0198bd493ced9b8df2a3a24d68a"
+#world_address = "0x7a4adc3dc01142811d2db99848998828b30e8a3c3d2a3875751f427ff11ad35"
+
+# slot
+#rpc_url = "https://api.cartridge.gg/x/rr/katana"
+#account_address = "0x247015d55088758b0712bc62351d864f5efdc6a128213708dc9ad92486ff1c2"
+#private_key = "0x44bcb4a4e4fccd06da386dd7a99a00a091d337240cf7d1d9946ca9625b9e816"
+#world_address = ""
+
+# testnet sepolia
+#rpc_url = "https://starknet-sepolia.public.blastapi.io/rpc/v0_6"
+#account_address = "0x00d8f5468626409c9af775c7994f4b4d1e7f17edbecd82ad548d3632b8773538"
+#private_key = "0x041004e1773bb07a806a03159d88ba1d2c480f283c85434040e35286c1ce1f7c"
+#world_address = "0x7a4adc3dc01142811d2db99848998828b30e8a3c3d2a3875751f427ff11ad35"
+
+[tool.fmt]
+sort-module-level-Stats = true
