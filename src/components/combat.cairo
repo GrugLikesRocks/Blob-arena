@@ -66,15 +66,6 @@ impl RevealImpl<T, +Into<T, felt252>> of RevealTrait<T> {
 }
 
 #[derive(Model, Copy, Drop, Print, Serde, SerdeLen)]
-struct CombatHealth {
-    #[key]
-    combat_id: u128,
-    player_a: ContractAddress,
-    player_b: ContractAddress,
-}
-
-
-#[derive(Model, Copy, Drop, Print, Serde, SerdeLen)]
 struct TwoHashes {
     #[key]
     id: u128,

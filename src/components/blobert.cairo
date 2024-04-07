@@ -14,25 +14,6 @@ struct Blobert {
     owner: ContractAddress,
     traits: Traits,
     stats: Stats,
-// owner: ContractAddress,
-// background:Background,
-// armour:Armour,
-// mask:Mask,
-// jewelry:Jewelry,
-// weapon:Weapon,
-// attack: u8,
-// defense: u8,
-// speed: u8,
-// strength: u8,
-}
-
-#[derive(Model, Copy, Drop, Print, Serde)]
-struct Health {
-    #[key]
-    blobert_id: u128,
-    #[key]
-    combat_id: u128,
-    health: u8,
 }
 
 #[derive(Copy, Drop, Print, Serde, Introspect)]
@@ -43,27 +24,6 @@ struct Traits {
     jewelry: Jewelry,
     weapon: Weapon,
 }
-
-// #[generate_trait]
-// impl BlobertStatsImpl of BlobertStatsTrait {
-//     fn to_blobert(self: Stats, blobert_id: u128) -> BlobertStats {
-//         BlobertStats {
-//             blobert_id,
-//             attack: self.attack,
-//             defense: self.defense,
-//             speed: self.speed,
-//             strength: self.strength,
-//         }
-//     }
-// }
-
-// impl StatsIntoBlobertStats of Into<BlobertStats, Stats> {
-//     fn into(self: BlobertStats) -> Stats {
-//         Stats {
-//             attack: self.attack, defense: self.defense, speed: self.speed, strength: self.strength,
-//         }
-//     }
-// }
 
 fn calculate_stats(traits: Traits) -> Stats {
     let Traits { background, armour, mask, jewelry, weapon, } = traits;

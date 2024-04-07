@@ -2,7 +2,7 @@ use blob_arena::components::combat::TwoHashesTrait;
 use blob_arena::components::combat::TwoMovesTrait;
 use blob_arena::{
     components::{
-        blobert::{Blobert, BlobertTrait, Health}, combat::{Move, TwoHashes, RevealTrait, TwoMoves},
+        blobert::{Blobert, BlobertTrait}, combat::{Move, TwoHashes, RevealTrait, TwoMoves},
         world::World, knockout::{Knockout, Healths, HealthsTrait, RoundTrait}, utils::{AB, Status},
     },
     systems::{blobert::{BlobertWorldTrait}, combat::{Outcome, calculate_damage, get_outcome}},

@@ -1,5 +1,5 @@
 use blob_arena::components::{
-    blobert::{Blobert, Health}, combat::{MatchResult, Move, TwoMoves, TwoMovesTrait},
+    blobert::{Blobert}, combat::{MatchResult, Move, TwoMoves, TwoMovesTrait},
     utils::{AB, Status, Winner}
 };
 use starknet::{ContractAddress};
