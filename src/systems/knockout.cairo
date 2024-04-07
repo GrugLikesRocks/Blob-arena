@@ -33,7 +33,8 @@ impl KnockoutGameImpl of KnockoutGameTrait {
         let combat_id = uuid(world);
         let _ = (world.get_blobert(blobert_a), world.get_blobert(blobert_b));
         let knockout = Knockout { combat_id, player_a, player_b, blobert_a, blobert_b };
-        set!(world, (knockout,));
+        let healths = Healths { combat_id, a: 255, b: 255 };
+        set!(world, (knockout, healths));
         combat_id
     }
     fn create(world: World, combat_id: u128) -> KnockoutGame {

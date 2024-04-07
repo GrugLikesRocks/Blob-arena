@@ -22,18 +22,18 @@ enum Background {
 impl BackgroundImpl of StatsTrait<Background> {
     fn stats(self: Background) -> Stats {
         match self {
-            Background::AvnuBlue => Stats { attack: 0, defense: 0, speed: 0, strength: 0, },
-            Background::Blue => Stats { attack: 0, defense: 0, speed: 0, strength: 0, },
-            Background::CryptsAndCaverns => Stats { attack: 0, defense: 0, speed: 0, strength: 0, },
-            Background::FibrousFrame => Stats { attack: 0, defense: 0, speed: 0, strength: 0, },
-            Background::Green => Stats { attack: 0, defense: 0, speed: 0, strength: 0, },
-            Background::Holo => Stats { attack: 0, defense: 0, speed: 0, strength: 0, },
-            Background::Orange => Stats { attack: 0, defense: 0, speed: 0, strength: 0, },
-            Background::Purple => Stats { attack: 0, defense: 0, speed: 0, strength: 0, },
-            Background::RealmsDark => Stats { attack: 0, defense: 0, speed: 0, strength: 0, },
-            Background::Realms => Stats { attack: 0, defense: 0, speed: 0, strength: 0, },
-            Background::Terraforms => Stats { attack: 0, defense: 0, speed: 0, strength: 0, },
-            Background::Tulip => Stats { attack: 0, defense: 0, speed: 0, strength: 0, },
+            Background::AvnuBlue => Stats { attack: 4, defense: 2, speed: 0, strength: 0, },
+            Background::Blue => Stats { attack: 2, defense: 2, speed: 0, strength: 0, },
+            Background::CryptsAndCaverns => Stats { attack: 2, defense: 5, speed: 0, strength: 0, },
+            Background::FibrousFrame => Stats { attack: 5, defense: 2, speed: 0, strength: 0, },
+            Background::Green => Stats { attack: 1, defense: 1, speed: 0, strength: 0, },
+            Background::Holo => Stats { attack: 5, defense: 5, speed: 0, strength: 0, },
+            Background::Orange => Stats { attack: 3, defense: 3, speed: 0, strength: 0, },
+            Background::Purple => Stats { attack: 4, defense: 4, speed: 0, strength: 0, },
+            Background::RealmsDark => Stats { attack: 4, defense: 5, speed: 0, strength: 0, },
+            Background::Realms => Stats { attack: 5, defense: 4, speed: 0, strength: 0, },
+            Background::Terraforms => Stats { attack: 5, defense: 5, speed: 0, strength: 0, },
+            Background::Tulip => Stats { attack: 3, defense: 5, speed: 0, strength: 0, },
         }
     }
     fn index(self: Background) -> u8 {

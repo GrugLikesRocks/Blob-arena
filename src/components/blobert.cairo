@@ -35,7 +35,7 @@ struct Health {
     health: u8,
 }
 
-#[derive(Copy, Drop, Print, Serde)]
+#[derive(Copy, Drop, Print, Serde, Introspect)]
 struct Traits {
     background: Background,
     armour: Armour,
@@ -67,11 +67,12 @@ struct Traits {
 
 fn calculate_stats(traits: Traits) -> Stats {
     let Traits { background, armour, mask, jewelry, weapon, } = traits;
-    let (b_stats, a_stats, m_stats, j_stats, w_stats) = (
+    let (b_stats, a_stats, m_stats, j_stats, mut w_stats) = (
         background.stats(), armour.stats(), mask.stats(), jewelry.stats(), weapon.stats()
     );
+    let s_mod = Stats { attack: 1, defense: 2, speed: 2, strength: 2 };
 
-    return ((b_stats + j_stats) * (a_stats + m_stats + w_stats));
+    return (b_stats + j_stats + w_stats + a_stats + m_stats) / s_mod;
 }
 
 fn generate_traits(seed: u256) -> Traits {

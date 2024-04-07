@@ -16,15 +16,14 @@ const JEWELRY_COUNT: u8 = 8;
 impl JewelryImpl of StatsTrait<Jewelry> {
     fn stats(self: Jewelry) -> Stats {
         match self {
-            Jewelry::Amulet => Stats { attack: 0, defense: 0, speed: 0, strength: 0, },
-            Jewelry::BronzeRing => Stats { attack: 0, defense: 0, speed: 0, strength: 0, },
-            Jewelry::GoldRing => Stats { attack: 0, defense: 0, speed: 0, strength: 0, },
-            Jewelry::Necklace => Stats { attack: 0, defense: 0, speed: 0, strength: 0, },
-            Jewelry::Pendant => Stats { attack: 0, defense: 0, speed: 0, strength: 0, },
-            Jewelry::PlatinumRing => Stats { attack: 0, defense: 0, speed: 0, strength: 0, },
-            Jewelry::SilverRing => Stats { attack: 0, defense: 0, speed: 0, strength: 0, },
-            Jewelry::TitaniumRing => Stats { attack: 0, defense: 0, speed: 0, strength: 0, },
-            _ => panic!("wrong jewelry index")
+            Jewelry::Amulet => Stats { attack: 0, defense: 0, speed: 5, strength: 5, },
+            Jewelry::BronzeRing => Stats { attack: 0, defense: 0, speed: 1, strength: 3, },
+            Jewelry::GoldRing => Stats { attack: 0, defense: 0, speed: 5, strength: 3, },
+            Jewelry::Necklace => Stats { attack: 0, defense: 0, speed: 1, strength: 1, },
+            Jewelry::Pendant => Stats { attack: 0, defense: 0, speed: 3, strength: 4, },
+            Jewelry::PlatinumRing => Stats { attack: 0, defense: 0, speed: 5, strength: 4, },
+            Jewelry::SilverRing => Stats { attack: 0, defense: 0, speed: 4, strength: 4, },
+            Jewelry::TitaniumRing => Stats { attack: 0, defense: 0, speed: 3, strength: 5, },
         }
     }
     fn index(self: Jewelry) -> u8 {
