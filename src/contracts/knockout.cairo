@@ -12,8 +12,6 @@ trait IKnockoutActions<TContractState> {
     ) -> u128;
     fn commit(self: @TContractState, combat_id: u128, hash: u64);
     fn reveal(self: @TContractState, combat_id: u128, move: Move, salt: u64);
-    fn verify(self: @TContractState, combat_id: u128);
-    fn fetch_status(self: @TContractState, combat_id: u128) -> Status;
 }
 
 #[dojo::contract]
@@ -43,12 +41,6 @@ mod knockout_actions {
         }
         fn reveal(self: @ContractState, combat_id: u128, move: Move, salt: u64) {
             self.get_game(combat_id).reveal_move(move, salt);
-        }
-        fn verify(self: @ContractState, combat_id: u128) {
-            self.get_game(combat_id).verify_round();
-        }
-        fn fetch_status(self: @ContractState, combat_id: u128) -> Status {
-            self.get_game(combat_id).get_status()
         }
     }
 

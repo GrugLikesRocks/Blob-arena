@@ -34,15 +34,6 @@ impl MoveNImpl of MoveNTrait {
     }
 }
 
-#[derive(Model, Copy, Drop, Print, Serde, SerdeLen)]
-struct PLayerCommitments {
-    #[key]
-    round_id: u128,
-    #[key]
-    hash_a: u64,
-    hash_b: u64,
-}
-
 #[derive(Copy, Drop, Serde)]
 struct Reveal<T> {
     move: Move,

@@ -102,13 +102,17 @@ impl KnockoutGameImpl of KnockoutGameTrait {
         assert(reveal.check_hash(commitments.get_hash(player)), 'Hash dose not atch');
 
         moves.set_move(player, move);
+
+        if moves.check_done() {
+            self.verify_round(ref commitments, ref moves);
+        } else {
+            set!(self.world, (moves,));
+        }
     }
 
-    fn verify_round(self: KnockoutGame) {
+    fn verify_round(self: KnockoutGame, ref commitments: TwoHashes, ref moves: TwoMoves) {
         let (blobert_a, blobert_b) = self.get_bloberts();
         let mut healths = self.get_healths();
-        let mut moves = self.get_moves();
-        let mut commitments = self.get_commitments();
         let (move_a, move_b) = moves.moves();
 
         let outcome = get_outcome(move_a, move_b);

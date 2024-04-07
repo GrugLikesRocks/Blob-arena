@@ -10,14 +10,18 @@ fn calculate_win_damage(attacker: Stats, defender: Stats, winning_mode: Move) ->
         Move::Counter => (attacker.speed, defender.strength),
         Move::Rush => (attacker.speed, defender.speed),
     };
-    attacker.attack * a_multiplier / (defender.defense * b_multiplier)
+
+    (attacker.attack + 10) * 2 / (defender.defense + b_multiplier) * (a_multiplier + 10)
 }
 
 fn calculate_draw_damage(attacker: Stats, defender: Stats, mode: Move) -> u8 {
     match mode {
-        Move::Beat => attacker.attack * attacker.strength - defender.defense,
+        Move::Beat => (attacker.attack + 10)
+            * 2
+            / (defender.defense + 10)
+            * (attacker.strength + 10),
         Move::Counter => 0,
-        Move::Rush => attacker.attack * attacker.speed - defender.defense,
+        Move::Rush => (attacker.attack + 10) * 2 / (defender.defense + 10) * (attacker.speed + 10),
     }
 }
 
