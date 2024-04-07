@@ -1,23 +1,23 @@
-use blob_arena::{components::{blobert::{Blobert}, world::World}};
-use dojo::world::{IWorldDispatcher, IWorldDispatcherTrait};
+use blob_arena::{
+    components::{blobert::{Blobert, BlobertTrait}, world::World}, utils::{uuid, RandomTrait}
+};
+use dojo::world::{IWorldDispatcherTrait};
 use starknet::{ContractAddress};
-
-use origami::random::
 
 
 #[generate_trait]
-impl BlobertImpl of WBlobertTrait {
-    fn formulate(seed: u128){
-        
+impl BlobertWorldImpl of BlobertWorldTrait {
+    fn mint_blobert(self: World, owner: ContractAddress) -> Blobert {
+        let id = uuid(self);
+        let mut random = RandomTrait::new();
+        let seed = random.next();
+        let blobert = BlobertTrait::new(id, owner, seed);
+        set!(self, (blobert,));
+        blobert
     }
-
-    fn get_blobert(self: IWorldDispatcher, bert_id: u128) -> Blobert {
-        get!(self, (bert_id), Blobert)
-    }
-    fn check_owner(self: Blobert, player: ContractAddress) -> bool {
-        return self.owner == player;
-    }
-    fn assert_owner(self: Blobert, player: ContractAddress) {
-        assert(self.check_owner(player), 'Not Blobert Owner');
+    fn get_blobert(self: World, blobert_id: u128) -> Blobert {
+        let blobert: Blobert = get!(self, (blobert_id), Blobert);
+        assert(blobert.owner.is_non_zero(), 'Blobert not found');
+        blobert
     }
 }

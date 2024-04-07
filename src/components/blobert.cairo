@@ -40,7 +40,7 @@ struct Items {
 
 #[generate_trait]
 impl BlobertImpl of BlobertTrait {
-    fn create(id: u128, owner: ContractAddress, seed: u256) -> Blobert {
+    fn new(id: u128, owner: ContractAddress, seed: u256) -> Blobert {
         let background_count: u256 = BACKGROUND_COUNT.into();
         let armour_count: u256 = ARMOUR_COUNT.into();
         let jewelry_count: u256 = JEWELRY_COUNT.into();
@@ -83,5 +83,11 @@ impl BlobertImpl of BlobertTrait {
             jewelry: self.jewelry.into(),
             weapon: self.weapon.into(),
         }
+    }
+    fn check_owner(self: Blobert, player: ContractAddress) -> bool {
+        return self.owner == player;
+    }
+    fn assert_owner(self: Blobert, player: ContractAddress) {
+        assert(self.check_owner(player), 'Not Blobert Owner');
     }
 }

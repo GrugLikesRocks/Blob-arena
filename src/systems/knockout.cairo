@@ -5,8 +5,8 @@ use blob_arena::{
         blobert::{Blobert, BlobertTrait, Health}, combat::{Move, TwoHashes, RevealTrait, TwoMoves},
         world::World, knockout::{Knockout, Healths, HealthsTrait}, utils::{AB, Status},
     },
-    systems::{blobert::{WBlobertTrait}, combat::{Outcome, calculate_damage, get_outcome}},
-    utils::{uuid, pedersen},
+    systems::{blobert::{BlobertWorldTrait}, combat::{Outcome, calculate_damage, get_outcome}},
+    utils::{uuid},
 };
 use starknet::{ContractAddress, get_caller_address};
 use dojo::world::{IWorldDispatcherTrait};
@@ -22,7 +22,7 @@ struct KnockoutGame {
 }
 
 #[generate_trait]
-impl KnockoutImpl of KnockoutTrait {
+impl KnockoutGameImpl of KnockoutGameTrait {
     fn new(
         world: World,
         player_a: ContractAddress,
@@ -31,7 +31,8 @@ impl KnockoutImpl of KnockoutTrait {
         blobert_b: u128
     ) -> u128 {
         let combat_id = uuid(world);
-        let knockout = Knockout { combat_id, player_a, player_b, blobert_a, blobert_b, };
+        let _ = (world.get_blobert(blobert_a), world.get_blobert(blobert_b));
+        let knockout = Knockout { combat_id, player_a, player_b, blobert_a, blobert_b };
         set!(world, (knockout,));
         combat_id
     }
@@ -82,6 +83,7 @@ impl KnockoutImpl of KnockoutTrait {
         healths
     }
     fn commit_move(self: KnockoutGame, hash: u64) {
+        self.assert_running();
         let player = self.get_caller_player();
         let mut commitments = self.get_commitments();
         match player {
@@ -118,5 +120,14 @@ impl KnockoutImpl of KnockoutTrait {
         moves.reset();
         commitments.reset();
         set!(self.world, (healths, commitments, moves));
+    }
+
+    fn get_status(self: KnockoutGame) -> Status {
+        let healths = self.get_healths();
+        healths.status()
+    }
+    fn assert_running(self: KnockoutGame) {
+        let status = self.get_status();
+        assert(status == Status::Running, 'Game not running');
     }
 }

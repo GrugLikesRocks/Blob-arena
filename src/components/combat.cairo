@@ -1,8 +1,6 @@
 use core::option::OptionTrait;
 use starknet::ContractAddress;
-use blob_arena::{
-    constants::U64_MASK_U256, components::utils::{AB, Status, Winner}, utils::pedersen
-};
+use blob_arena::{constants::U64_MASK_U256, components::utils::{AB, Status, Winner}};
 
 
 #[derive(Copy, Drop, Print, Serde, SerdeLen, PartialEq)]
@@ -59,7 +57,7 @@ impl RevealImpl<T, +Into<T, felt252>> of RevealTrait<T> {
         (self.get_hash_felt252().into() & U64_MASK_U256).try_into().unwrap()
     }
     fn get_hash_felt252(self: Reveal<T>) -> felt252 {
-        pedersen(self.salt.into(), self.move.into())
+        pedersen::pedersen(self.salt.into(), self.move.into())
     }
     fn check_hash(self: Reveal<T>, hash: u64) -> bool {
         self.get_hash() == hash

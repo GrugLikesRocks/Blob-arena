@@ -15,11 +15,11 @@ mod systems {
     mod combat;
     mod knockout;
     mod blobert;
-    mod world;
 }
 
 mod contracts {
     mod knockout;
+    mod blobert;
 }
 mod constants;
 mod utils;
