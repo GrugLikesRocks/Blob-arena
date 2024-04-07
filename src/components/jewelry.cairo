@@ -1,5 +1,5 @@
 use blob_arena::components::stats::{Stats, StatsTrait};
-#[derive(Copy, Drop, Print, Serde, SerdeLen, Size)]
+#[derive(Copy, Drop, Print, Serde, SerdeLen, Size, Introspect)]
 enum Jewelry {
     Amulet,
     BronzeRing,

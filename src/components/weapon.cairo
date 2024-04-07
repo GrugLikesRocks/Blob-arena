@@ -3,7 +3,7 @@ use blob_arena::components::stats::{Stats, StatsTrait};
 const WEAPON_COUNT: u8 = 43;
 
 
-#[derive(Copy, Drop, Print, Serde, SerdeLen)]
+#[derive(Copy, Drop, Print, Serde, SerdeLen, Introspect)]
 enum Weapon {
     AlgorithmicAegis,
     ArgentShield,

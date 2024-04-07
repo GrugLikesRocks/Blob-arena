@@ -1,5 +1,5 @@
 use core::option::OptionTrait;
-#[derive(Copy, Drop, Print, Serde, SerdeLen)]
+#[derive(Copy, Drop, Print, Serde, SerdeLen, Introspect)]
 struct Stats {
     attack: u8,
     defense: u8,
