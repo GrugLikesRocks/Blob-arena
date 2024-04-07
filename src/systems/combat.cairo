@@ -5,13 +5,13 @@ use blob_arena::components::{
 
 
 fn calculate_win_damage(attacker: Stats, defender: Stats, winning_mode: Move) -> u8 {
-    let (atacker_var, defender_var): (u8, u8) = match winning_mode {
+    let (attacker_var, defender_var): (u8, u8) = match winning_mode {
         Move::Beat => (attacker.strength, defender.strength),
         Move::Counter => (attacker.speed, defender.strength),
         Move::Rush => (attacker.speed, defender.speed),
     };
 
-    (attacker.attack + 10) * 2 / (defender.defense + defender_var) * (atacker_var + 10)
+    (attacker.attack + 10) * 2 / (defender.defense + defender_var) * (attacker_var + 10)
 }
 
 fn calculate_draw_damage(attacker: Stats, defender: Stats, mode: Move) -> u8 {
