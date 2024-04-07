@@ -12,11 +12,18 @@ struct Blobert {
     #[key]
     id: u128,
     owner: ContractAddress,
-    background: u8,
-    armour: u8,
-    mask: u8,
-    jewelry: u8,
-    weapon: u8,
+    traits: Traits,
+    stats: Stats,
+// owner: ContractAddress,
+// background:Background,
+// armour:Armour,
+// mask:Mask,
+// jewelry:Jewelry,
+// weapon:Weapon,
+// attack: u8,
+// defense: u8,
+// speed: u8,
+// strength: u8,
 }
 
 #[derive(Model, Copy, Drop, Print, Serde)]
@@ -29,7 +36,7 @@ struct Health {
 }
 
 #[derive(Copy, Drop, Print, Serde)]
-struct Items {
+struct Traits {
     background: Background,
     armour: Armour,
     mask: Mask,
@@ -37,52 +44,74 @@ struct Items {
     weapon: Weapon,
 }
 
+// #[generate_trait]
+// impl BlobertStatsImpl of BlobertStatsTrait {
+//     fn to_blobert(self: Stats, blobert_id: u128) -> BlobertStats {
+//         BlobertStats {
+//             blobert_id,
+//             attack: self.attack,
+//             defense: self.defense,
+//             speed: self.speed,
+//             strength: self.strength,
+//         }
+//     }
+// }
 
+// impl StatsIntoBlobertStats of Into<BlobertStats, Stats> {
+//     fn into(self: BlobertStats) -> Stats {
+//         Stats {
+//             attack: self.attack, defense: self.defense, speed: self.speed, strength: self.strength,
+//         }
+//     }
+// }
+
+fn calculate_stats(traits: Traits) -> Stats {
+    let Traits { background, armour, mask, jewelry, weapon, } = traits;
+    let (b_stats, a_stats, m_stats, j_stats, w_stats) = (
+        background.stats(), armour.stats(), mask.stats(), jewelry.stats(), weapon.stats()
+    );
+
+    return ((b_stats + j_stats) * (a_stats + m_stats + w_stats));
+}
+
+fn generate_traits(seed: u256) -> Traits {
+    let background_count: u256 = BACKGROUND_COUNT.into();
+    let armour_count: u256 = ARMOUR_COUNT.into();
+    let jewelry_count: u256 = JEWELRY_COUNT.into();
+    let weapon_count: u256 = WEAPON_COUNT.into();
+    let mut mask_count: u256 = MASK_COUNT.into();
+    let mut m_seed = seed;
+    let background: u8 = (m_seed % background_count).try_into().unwrap();
+    m_seed /= 0x100;
+    let armour: u8 = (m_seed % armour_count).try_into().unwrap();
+    m_seed /= 0x100;
+    // only allow the mask to be one of the first 8 masks 
+    // where the armour is sheep wool or kigurumi
+    if armour == 0 || armour == 1 {
+        mask_count = 8;
+    };
+
+    let jewelry: u8 = (m_seed % jewelry_count).try_into().unwrap();
+    m_seed /= 0x100;
+
+    let mask: u8 = (m_seed % mask_count).try_into().unwrap();
+    m_seed /= 0x100;
+
+    let weapon: u8 = (m_seed % weapon_count).try_into().unwrap();
+    Traits {
+        background: background.into(),
+        armour: armour.into(),
+        mask: mask.into(),
+        jewelry: jewelry.into(),
+        weapon: weapon.into(),
+    }
+}
 #[generate_trait]
 impl BlobertImpl of BlobertTrait {
     fn new(id: u128, owner: ContractAddress, seed: u256) -> Blobert {
-        let background_count: u256 = BACKGROUND_COUNT.into();
-        let armour_count: u256 = ARMOUR_COUNT.into();
-        let jewelry_count: u256 = JEWELRY_COUNT.into();
-        let weapon_count: u256 = WEAPON_COUNT.into();
-        let mut mask_count: u256 = MASK_COUNT.into();
-        let mut m_seed = seed;
-        let background: u8 = (m_seed % background_count).try_into().unwrap();
-        m_seed /= 0x100;
-        let armour: u8 = (m_seed % armour_count).try_into().unwrap();
-        m_seed /= 0x100;
-        // only allow the mask to be one of the first 8 masks 
-        // where the armour is sheep wool or kigurumi
-        if armour == 0 || armour == 1 {
-            mask_count = 8;
-        };
-
-        let jewelry: u8 = (m_seed % jewelry_count).try_into().unwrap();
-        m_seed /= 0x100;
-
-        let mask: u8 = (m_seed % mask_count).try_into().unwrap();
-        m_seed /= 0x100;
-
-        let weapon: u8 = (m_seed % weapon_count).try_into().unwrap();
-
-        return Blobert { id, owner, background, armour, jewelry, mask, weapon };
-    }
-    fn stats(self: @Blobert) -> Stats {
-        let Items { background, armour, mask, jewelry, weapon, } = self.items();
-        let (b_stats, a_stats, m_stats, j_stats, w_stats) = (
-            background.stats(), armour.stats(), mask.stats(), jewelry.stats(), weapon.stats()
-        );
-
-        return (b_stats + j_stats) * (a_stats + m_stats + w_stats);
-    }
-    fn items(self: @Blobert) -> Items {
-        Items {
-            background: self.background.into(),
-            armour: self.armour.into(),
-            mask: self.mask.into(),
-            jewelry: self.jewelry.into(),
-            weapon: self.weapon.into(),
-        }
+        let traits = generate_traits(seed);
+        let stats = calculate_stats(traits);
+        return Blobert { id, owner, traits, stats };
     }
     fn check_owner(self: Blobert, player: ContractAddress) -> bool {
         return self.owner == player;

@@ -111,7 +111,7 @@ impl KnockoutGameImpl of KnockoutGameTrait {
         let (move_a, move_b) = moves.moves();
 
         let outcome = get_outcome(move_a, move_b);
-        let (damage_a, damage_b) = calculate_damage(blobert_a.stats(), blobert_b.stats(), outcome);
+        let (damage_a, damage_b) = calculate_damage(blobert_a.stats, blobert_b.stats, outcome);
         let round = RoundTrait::create(self.combat_id, healths, moves, damage_a, damage_b);
         moves.reset();
         commitments.reset();
