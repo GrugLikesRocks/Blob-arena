@@ -1,5 +1,6 @@
 use blob_arena::components::{
-    blobert::{Blobert, Health}, combat::MatchResult, utils::{AB, Status, Winner}
+    blobert::{Blobert, Health}, combat::{MatchResult, Move, TwoMoves, TwoMovesTrait},
+    utils::{AB, Status, Winner}
 };
 use starknet::{ContractAddress};
 
@@ -23,6 +24,30 @@ struct Healths {
     b: u8,
 }
 
+#[derive(Model, Copy, Drop, Print, Serde, SerdeLen)]
+struct LastRound {
+    #[key]
+    combat_id: u128,
+    health_a: u8,
+    health_b: u8,
+    move_a: Move,
+    move_b: Move,
+    damage_a: u8,
+    damage_b: u8,
+}
+
+
+#[generate_trait]
+impl RoundImpl of RoundTrait {
+    fn create(
+        combat_id: u128, healths: Healths, moves: TwoMoves, damage_a: u8, damage_b: u8
+    ) -> LastRound {
+        let (move_a, move_b) = moves.moves();
+        LastRound {
+            combat_id, health_a: healths.a, health_b: healths.b, move_a, move_b, damage_a, damage_b
+        }
+    }
+}
 
 #[generate_trait]
 impl HealthsImpl of HealthsTrait {

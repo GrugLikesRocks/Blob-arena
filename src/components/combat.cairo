@@ -3,12 +3,13 @@ use starknet::ContractAddress;
 use blob_arena::{constants::U64_MASK_U256, components::utils::{AB, Status, Winner}};
 
 
-#[derive(Copy, Drop, Print, Serde, SerdeLen, PartialEq)]
+#[derive(Copy, Drop, Print, Serde, SerdeLen, PartialEq, Introspect)]
 enum Move {
     Beat,
     Counter,
     Rush,
 }
+
 #[derive(Copy, Drop, Print, Serde, SerdeLen, PartialEq, Introspect)]
 enum MoveN {
     None,
@@ -99,7 +100,7 @@ impl TwoMovesImpl of TwoMovesTrait {
         assert(move.is_some(), 'Move not set');
         return move.move();
     }
-    fn get_moves(self: TwoMoves) -> (Move, Move) {
+    fn moves(self: TwoMoves) -> (Move, Move) {
         assert(self.a.is_some(), 'Move A not set');
         assert(self.b.is_some(), 'Move B not set');
         (self.a.move(), self.b.move())
@@ -155,37 +156,6 @@ impl TwoHashesImpl of TwoHashesTrait {
     }
 }
 
-#[derive(Model, Copy, Drop, Print, Serde, SerdeLen)]
-struct Round {
-    #[key]
-    combat_id: u128,
-    health_a: u8,
-    health_b: u8,
-}
-
-#[generate_trait]
-impl RoundImpl of RoundTrait {
-    fn running(self: Round) -> bool {
-        return self.health_a > 0 && self.health_b > 0;
-    }
-    fn apply_damage(ref self: Round, outcome: Outcome, damage_a: u8, damage_b: u8) {
-        self.health_a -= damage_a;
-        self.health_b -= damage_b;
-    }
-    fn status(self: Round) -> Status {
-        if self.health_a > 0 && self.health_b > 0 {
-            return Status::Running;
-        }
-        let winner: Winner = if self.health_a > 0 {
-            Winner::A
-        } else if self.health_b > 0 {
-            Winner::B
-        } else {
-            Winner::Draw
-        };
-        return Status::Finished(winner);
-    }
-}
 
 impl MoveIntoU8<T, +Into<u8, T>> of Into<Move, T> {
     fn into(self: Move) -> T {

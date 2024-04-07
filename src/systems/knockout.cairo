@@ -3,7 +3,7 @@ use blob_arena::components::combat::TwoMovesTrait;
 use blob_arena::{
     components::{
         blobert::{Blobert, BlobertTrait, Health}, combat::{Move, TwoHashes, RevealTrait, TwoMoves},
-        world::World, knockout::{Knockout, Healths, HealthsTrait}, utils::{AB, Status},
+        world::World, knockout::{Knockout, Healths, HealthsTrait, RoundTrait}, utils::{AB, Status},
     },
     systems::{blobert::{BlobertWorldTrait}, combat::{Outcome, calculate_damage, get_outcome}},
     utils::{uuid},
@@ -74,14 +74,6 @@ impl KnockoutGameImpl of KnockoutGameTrait {
         panic!("Player not part of combat");
         AB::A
     }
-    fn run_round(self: KnockoutGame, move_a: Move, move_b: Move) -> Healths {
-        let (blobert_a, blobert_b) = self.get_bloberts();
-        let mut healths = self.get_healths();
-        let outcome = get_outcome(move_a, move_b);
-        let (damage_a, damage_b) = calculate_damage(blobert_a.stats(), blobert_b.stats(), outcome);
-        healths.apply_damage(damage_a, damage_b);
-        healths
-    }
     fn commit_move(self: KnockoutGame, hash: u64) {
         self.assert_running();
         let player = self.get_caller_player();
@@ -111,15 +103,20 @@ impl KnockoutGameImpl of KnockoutGameTrait {
         moves.set_move(player, move);
     }
 
-    fn verfiy_outcome(self: KnockoutGame) {
+    fn verify_round(self: KnockoutGame) {
+        let (blobert_a, blobert_b) = self.get_bloberts();
+        let mut healths = self.get_healths();
         let mut moves = self.get_moves();
         let mut commitments = self.get_commitments();
-        let (move_a, move_b) = moves.get_moves();
+        let (move_a, move_b) = moves.moves();
 
-        let healths = self.run_round(move_a, move_b);
+        let outcome = get_outcome(move_a, move_b);
+        let (damage_a, damage_b) = calculate_damage(blobert_a.stats(), blobert_b.stats(), outcome);
+        let round = RoundTrait::create(self.combat_id, healths, moves, damage_a, damage_b);
         moves.reset();
         commitments.reset();
-        set!(self.world, (healths, commitments, moves));
+        healths.apply_damage(damage_a, damage_b);
+        set!(self.world, (healths, commitments, moves, round));
     }
 
     fn get_status(self: KnockoutGame) -> Status {

@@ -45,7 +45,7 @@ mod knockout_actions {
             self.get_game(combat_id).reveal_move(move, salt);
         }
         fn verify(self: @ContractState, combat_id: u128) {
-            self.get_game(combat_id).verfiy_outcome();
+            self.get_game(combat_id).verify_round();
         }
         fn fetch_status(self: @ContractState, combat_id: u128) -> Status {
             self.get_game(combat_id).get_status()
