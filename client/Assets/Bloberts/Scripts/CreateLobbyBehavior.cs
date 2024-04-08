@@ -1,11 +1,11 @@
 using Dojo.Starknet;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class CreateLobbyBehavior : Menu
 {
+    public MenuManager menuManager;
+    public Menu battlePhase;
     //se the data for the blobert and have an input field take waya the button
 
     public BlobertCardData blobertCardData;
@@ -13,10 +13,13 @@ public class CreateLobbyBehavior : Menu
     public TMP_InputField inputFieldOtherBlob;
 
     public TMP_Text idText;
+    public TMP_Text addressText;
 
     private void OnEnable()
     {
         var blobert = DojoEntitiesStatic.userBlobertData;
+
+        addressText.text = DojoEntitiesStatic.currentAccount.Address.Hex();
 
         blobertCardData.SetBicepText(blobert.stats.strength.ToString());
         blobertCardData.SetShoesText(blobert.stats.speed.ToString());
@@ -44,8 +47,14 @@ public class CreateLobbyBehavior : Menu
         {
             account = DojoEntitiesStatic.currentAccount,
             functionName = "new",
-            addressOfSystem = DojoCallsStatis.blobertActionsAddress
+            addressOfSystem = DojoCallsStatis.knockoutAddress
         };
+
+        Debug.Log("Creating new game");
+        Debug.Log("Player A: " + DojoEntitiesStatic.currentAccount.Address.Hex());
+        Debug.Log("Player B: " + new FieldElement(inputFieldOtherPlayer.text).Hex());
+        Debug.Log("Blobert A: " + DojoEntitiesStatic.userBlobertData.blobertId.Hex());
+        Debug.Log("Blobert B: " + new FieldElement(inputFieldOtherBlob.text).Hex());
 
         var dataStruct = new DojoCallsStatis.CreateNewGameStruct
         {
@@ -65,6 +74,7 @@ public class CreateLobbyBehavior : Menu
         if (DojoEntitiesStatic.healthsCurrentGame != null && DojoEntitiesStatic.knockoutCurrentGame != null)
         {
             Debug.Log("we move to the next phase");
+            menuManager.OpenMenu(battlePhase);
         }
     }
 }

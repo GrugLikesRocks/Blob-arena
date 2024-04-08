@@ -21,7 +21,7 @@ public class BlobertCardData : MonoBehaviour
     {
         blobertId = id;
 
-        blobert = DojoEntitiesStatic.allBlobertDict[id];
+        blobert = DojoEntitiesStatic.allBlobertDict[id.Hex()];
         //get the data and everything from here too
 
         SetBicepText(blobert.stats.strength.ToString());

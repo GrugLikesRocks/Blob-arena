@@ -101,4 +101,25 @@ mergeInto(LibraryManager.library, {
             s: UTF8ToString(s)
         });
     },
+    CopyToClipboardImpl: function(textPointer) {
+        var text = UTF8ToString(textPointer);
+        navigator.clipboard.writeText(text).then(function() {
+        console.log('Async: Copying to clipboard was successful!');
+        }, function(err) {
+        console.error('Async: Could not copy text: ', err);
+        });
+    },
+	PedersenFunction: function(value1Ptr,value2Ptr) {
+		var value1 = UTF8ToString(value1); 
+		var value2 = UTF8ToString(value2); 
+
+		const hash = window.customStark.ec.starkCurve.pedersen(value1, value2);
+		var last64Bits = hash.slice(-16);
+
+        var number = BigInt("0x" + last64Bits);
+        var numberAsString = number.toString();
+
+		return numberAsString;
+	}
+
 });

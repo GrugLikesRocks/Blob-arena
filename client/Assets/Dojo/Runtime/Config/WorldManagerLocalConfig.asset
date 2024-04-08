@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faed63f2427f3ed83a42d16bb3e73e6d, type: 3}
   m_Name: WorldManagerLocalConfig
   m_EditorClassIdentifier: 
-  environmentType: 0
-  toriiUrl: http://localhost:8080
-  rpcUrl: http://localhost:5050
+  environmentType: 1
+  toriiUrl: https://api.cartridge.gg/x/blob/torii
+  rpcUrl: https://api.cartridge.gg/x/blob/katana
   relayUrl: /ip4/127.0.0.1/tcp/9090
   relayWebrtcUrl: /ip4/127.0.0.1/udp/9091/webrtc-direct/certhash/uEiDx-luHsovHTHPuU5qzNHCCFkYYpFPirTn2p7ZIFP0Dig
-  worldAddress: 0x3a0394af68d1727a0019949a94fa584e8bc132903d49bb545888eb1bd427cf4
+  worldAddress: 0x182ca5288304dbade256febd4a46251173784acf67ed0fca541afaec08c42db
   gameActionsAddress: 
   eventActionsAddress: 
   outpostActionsAddress: 
@@ -25,6 +25,6 @@ MonoBehaviour:
   paymentActionsAddress: 
   tradeOutpostActionsAddress: 
   tradeReinforcementActionsAddress: 
-  masterAddress: 0xb3ff441a68610b30fd5e2abbf3a1548eb6ba6f3559f2862bf2dc757e5828ca
-  masterPrivateKey: 0x2bbf4f9fd0bbb2e60b0316c1fe0b76cf7a4d0198bd493ced9b8df2a3a24d68a
+  masterAddress: 0xe249d4d781232ebdebfdc4c548238fd302ede7ff875488f7e10d47b2c30bf5
+  masterPrivateKey: 0x24780c5802ff4606624d7e51d65e04aad5d812c15d4f7bb274c96d8d64fb2d7
   limit: 100

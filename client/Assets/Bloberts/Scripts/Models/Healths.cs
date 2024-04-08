@@ -1,6 +1,7 @@
 using Dojo;
 using Dojo.Starknet;
 using Dojo.Torii;
+using UnityEngine;
 
 public class Healths : ModelInstance
 {
@@ -14,7 +15,10 @@ public class Healths : ModelInstance
 
     private void Start()
     {
-        DojoEntitiesStatic.healthsStorage.Add(combatId, this);
+        //DojoEntitiesStatic.healthsList.Add(this);
+        Debug.Log("Healths combat id: " + combatId.Hex());
+        Debug.Log("Healths a: " + a);
+
     }
 
     private void Update()
@@ -24,6 +28,5 @@ public class Healths : ModelInstance
 
     public override void OnUpdate(Model model)
     {
-
     }
 }

@@ -39,7 +39,7 @@ public class Blobert : ModelInstance
         Debug.Log("Blobert traits jewelry: " + traits.jewelry);
         Debug.Log("Blobert traits strength: " + traits.weapon);
 
-        DojoEntitiesStatic.allBlobertDict.Add(blobertId, this);
+        DojoEntitiesStatic.allBlobertDict.Add(blobertId.Hex(), this);
     }
 
     private void Update()

@@ -10,7 +10,7 @@ public class Knockout : ModelInstance
 
     [ModelField("player_a")]
     public FieldElement playerA;
-    [ModelField("player_a")]
+    [ModelField("player_b")]
     public FieldElement playerB;
 
     [ModelField("blobert_a")]

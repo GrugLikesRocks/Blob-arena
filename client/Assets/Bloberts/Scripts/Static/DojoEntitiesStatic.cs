@@ -1,4 +1,5 @@
 using Dojo.Starknet;
+using System;
 using System.Collections.Generic;
 
 public static class DojoEntitiesStatic 
@@ -17,15 +18,14 @@ public static class DojoEntitiesStatic
 
 
 
-    
+    public static Dictionary<string, TwoHashes> twoHashesDict = new Dictionary<string, TwoHashes>();
 
-    public static Dictionary<FieldElement, TwoHashes> twoHashesDict = new Dictionary<FieldElement, TwoHashes>();
+    public static Dictionary<string, TwoMoves> twoMovesDict = new Dictionary<string, TwoMoves>();
 
-    public static Dictionary<FieldElement, TwoMoves> twoMovesDict = new Dictionary<FieldElement, TwoMoves>();
+    //public static Dictionary<string, Healths> healthsStorage = new Dictionary<string, Healths>();
 
-    public static Dictionary<FieldElement, Healths> healthsStorage = new Dictionary<FieldElement, Healths>();
-
-    public static Dictionary<FieldElement, Blobert> allBlobertDict = new Dictionary<FieldElement, Blobert>();
+    public static Dictionary<string, Blobert> allBlobertDict = new Dictionary<string, Blobert>();
 
     public static List<Knockout> knockoutsList = new List<Knockout>();
+    public static List<Healths> healthsList = new List<Healths>();
 }

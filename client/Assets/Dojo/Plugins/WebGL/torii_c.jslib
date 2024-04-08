@@ -133,22 +133,6 @@ mergeInto(LibraryManager.library, {
     client.__destroy_into_raw();
     dynCall_vi(cb, buffer);
   },
-
-  
-	PedersenFunction: function(value1Ptr,value2Ptr) {
-		var value1 = UTF8ToString(value1); 
-		var value2 = UTF8ToString(value2); 
-
-		const hash = window.customStark.ec.starkCurve.pedersen(value1, value2);
-		var last64Bits = hash.slice(-16);
-
-    var number = BigInt("0x" + last64Bits);
-    var numberAsString = number.toString();
-
-		return numberAsString;
-	},
-
-
   OnMessage: async function (clientPtr, cb) {
     var client = wasm_bindgen.Client.__wrap(clientPtr);
     client.onMessage((propagationSource, source, messageId, topic, data) => {
