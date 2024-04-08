@@ -1,4 +1,3 @@
-target/
-.env*
-abis/
-manifests/
+contracts/target/
+contracts/abis/
+contracts/manifests/
