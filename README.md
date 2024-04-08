@@ -4,7 +4,22 @@
 # Blob Arena
 
 
+## Useful Links
 
+Game Build: 
+
+Tracks: 
+
+  * Road to Mainnet
+  * Blobert/Realms
+  * Unity
+  * Hidden Information
+
+Game Design Doc: https://docs.google.com/document/d/1OUbfTieBfixfIp6BJ_9rbAsfTp_8HCEmiMm3jdOR5PE/edit?usp=sharing
+
+Figma Design: https://www.figma.com/file/Fw0wd5rLe06ULBs11vJFs7/Blob-Arena?type=whiteboard&node-id=0-1&t=KiJeFr2fEfWnb7Ze-0
+
+Video Trailer: https://youtu.be/R-EQoXvPhUo
 
 # Overview
 
@@ -12,7 +27,7 @@
 
 ## Game Concept
 
-After players mint a Bloberts, grumpy yet fierce creatures, each boasting unique attributes that influence their combat effectiveness. The goal is to challenge and defeat opponents' Bloberts in tactical battles, with the victor claiming the loser’s character. The game focuses on strategy, prediction, and understanding the nuanced effects of Blobert attributes on combat outcomes.
+After players mint a Bloberts, grumpy yet fierce creatures, each boasting unique attributes that influence their combat effectiveness. The goal is to challenge and defeat opponents' Bloberts in tactical battles, with the victor claiming the loser’s character. The game focuses on strategy, prediction, and understanding the nuanced effects of Blobert attributes on combat outcomes. Also we had to include some funny (in the 'Bert way) quotes in the game from the sassiest blobfish on-chain.
 
 Characters: Bloberts
 
@@ -26,11 +41,15 @@ Each Blobert character comes with a set of four primary attributes: Attack, Defe
 ## Combat Mechanics
 Bloberts have access to three combat moves:
 
-Beat: A powerful attack that can crush a Counter strategy.
-Rush: A swift move that outpaces and defeats Beat.
-Counter: A strategic defense that turns the tables on Rush.
+* Beat: A powerful attack that can crush a Counter strategy.
+
+* Rush: A swift move that outpaces and defeats Beat.
+
+* Counter: A strategic defense that turns the tables on Rush.
 
 ### Two-Phase Combat System
+
+![5_phrase](https://github.com/GrugLikesRocks/Blob-arena/assets/92889945/c8707c72-f8b5-40d4-91ab-e0346f092c2f)
 
 #### Phase 1: Rock-Paper-Scissors Logic
 
@@ -42,10 +61,33 @@ Counter: A strategic defense that turns the tables on Rush.
 
 The outcome of this phase determines the base result of the encounter, essentially who has the upper hand before attributes are applied.
 
+Players commit their choices without revealing them, ensuring a fair game. Once both players have committed, the reveal phase follows, determining the winner based on the choices made.
+
 #### Phase 2: Attribute Modifier Application
 
 After establishing the initial advantage based on the rock-paper-scissors mechanic, the outcome is then adjusted by applying a multiplier derived from the Bloberts' attributes. This multiplier reflects the nuanced differences between each Blobert, considering their Attack, Strength, Defence, and Speed.
 
+* Winning Mode Influence:
+  
+   - Beat: Uses both characters' strength.
+   - Counter: Combines attacker's speed with defender's strength.
+   - Rush: Utilizes both characters' speed.
+ 
+* Damage Calculation: 
+
+  - The formula now incorporates defender_var directly from the matched move and attacker_var for adding depth to the attacker’s capability influence:
+
+` Damage = (attacker.attack + 10) * 2 / (defender.defense + defender_var) * (attacker_var + 10) `
+
+* RPS Draw:
+
+   - Beat and Rush: The calculations are similar but factor in the attacker's strength for Beat and speed for Rush against the defender's defense.
+     - Formula:
+
+      ` Damage = (attacker.attack + 10) * 2 / (defender.defense + defender_var) * (attacker_var + 10) `
+
+     - Where specific_stat is either strength (Beat) or speed (Rush).
+   - Counter: Results in no damage being dealt, indicating a complete stalemate in this mode.
 
 ### Final Outcome Calculation
 
@@ -103,6 +145,9 @@ AI Conquest Leaderboard: Tracks the players with the most consecutive wins again
 
 PvP Victory Leaderboard: Highlights players who have achieved the most consecutive wins in player-vs-player battles. This leaderboard showcases the game's elite, highlighting those who excel in strategic planning and execution against other real-world players.
 
+![image](https://github.com/GrugLikesRocks/Blob-arena/assets/92889945/1b500016-e086-492e-8676-1499546e843f)
+
+
 ### Technical Specifications
 
 Platform: Unity, Cairo, Dojo.
@@ -115,10 +160,26 @@ Sound: Catchy, upbeat background music with distinct sound effects for each move
 
 Balance: Careful adjustment of Blobert attributes and move effectiveness to ensure a fair and engaging gameplay experience.
 
+Mainnet: Plan for the deployment of "Blob Arena" on the Starknet Mainnet within 3 months following the conclusion of the game jam.
+
 Expansion: Potential for future updates with new Bloberts, moves, and battle arenas to keep the game fresh and engaging.
 
 Community: Implementing a simple way for players to share their experiences and strategies could foster a supportive community around the game.
 
+Fight against AI (PVE): Players will have the opportunity to challenge AI-controlled Bloberts in a Player vs. Environment (PvE) mode. This feature aims to provide a robust single-player experience, allowing players to hone their skills, test new strategies, and enjoy the game at their own pace.
+
+Leaderboards: The introduction of leaderboards to recognize players with the most consecutive wins in both PvE and PvP modes. Top players will be rewarded with $LORDS, the game's virtual currency, encouraging competition and acknowledging skill and dedication.
+
+Join Lobby: A 'Join Lobby' function will allow players to enter public fights, challenging opponents in real-time. This feature is designed to simplify the process of finding matches, making it easier for players to engage in PvP battles without the need for direct invites.
+
+Entry Fee Mechanism in $LORDS: Introducing an entry fee mechanism where players will need to spend a nominal amount of $LORDS to participate in battles. This system is designed to elevate the stakes of each match and foster a competitive economy within the game.
+
+Injured Bloberts Mechanic: Implementing a mechanic where Bloberts become "injured" and unusable for a day following a loss in battle vs a fight with an AI Blobert.
+
+
 ## Conclusion
 
 "Blob Arena" aims to offer a compact yet thrilling tactical battle experience, inviting players to engage in strategic thinking, risk assessment, and the joy of collecting and battling with an ever-growing roster of Bloberts. This game design document provides a foundational overview of the game’s mechanics, goals, and development considerations, serving as a guidepost for the exciting journey of bringing "Blob Arena" to life.
+
+
+
