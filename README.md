@@ -6,7 +6,7 @@
 
 ## Useful Links
 
-Game Build: 
+Game Build: https://alexhalo3115.itch.io/blob-arena
 
 Tracks: 
 
